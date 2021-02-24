@@ -1,0 +1,25 @@
+@import '../../../styles/settings';
+@import '../../../styles/helpers';
+
+.login-form-container {
+  height: 100vh;
+  @include alignMe(flex-start, center);
+  flex-direction: column;
+  padding-top: 5rem;
+  .login-form {
+    width: 22%;
+    @include alignMe(center, center);
+    flex-direction: column;
+
+    .login-form-submit-bttn {
+      margin: 1rem 0 0.6rem 0;
+    }
+    .login-form-register {
+      cursor: pointer;
+      color: $darkGrey;
+    }
+    .login-form-error {
+      color: $red;
+    }
+  }
+}
