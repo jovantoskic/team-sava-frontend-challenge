@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { isLoggedIn } from '../../../utils/helpers';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const RouteWrapper = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -13,4 +13,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default RouteWrapper;

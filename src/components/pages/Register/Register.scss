@@ -1,27 +1,22 @@
 @import '../../../styles/settings';
 @import '../../../styles/helpers';
 
-.login-form-container {
+.register-form-container {
   height: 100vh;
   @include alignMe(center, flex-start);
   padding-top: 5rem;
-  .login-form {
+  .register-form {
     flex: 0.2;
     @include alignMe(center, center);
     flex-direction: column;
-    .login-form-submit-bttn {
+    .register-form-submit-bttn {
       margin: 1rem 0 0.6rem 0;
     }
-    .login-form-register {
+    .register-form-register-url {
       cursor: pointer;
       color: $darkGrey;
-      .create-account {
-        &:hover {
-          color: $main;
-        }
-      }
     }
-    .login-form-error {
+    .register-form-error-message {
       color: $red;
     }
   }

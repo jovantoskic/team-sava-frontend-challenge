@@ -3,10 +3,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
-import { isLoggedIn } from './utils/helpers';
-
+import RouteWrapper from './components/shared/RouteWrapper';
+import Dashboard from './components/pages/Dashboard';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 
@@ -18,9 +18,10 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            {!isLoggedIn() && <Redirect to="/login" />}
+            <Redirect to="/login" />
           </Route>
-          <Route component={Register} path="/register" />
+          <RouteWrapper component={Dashboard} exact path="/dashboard"/>
+          <Route component={Register} exact path="/register" />
           <Route component={Login} exact path="/login" />
         </Switch>
       </Router>

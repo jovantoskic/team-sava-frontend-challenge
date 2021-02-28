@@ -10,27 +10,26 @@ import Typography from '@material-ui/core/Typography';
 import './Login.scss';
 
 function Login() {
+  const history = useHistory();
+
   const [data, setData] = useState({
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const history = useHistory();
-
-  const handleLogin = event => {
+  const handleLogin = async event => {
     event.preventDefault();
-    axios
-      .post(API_LOGIN_URL, data)
-      .then(response => {
-        const {
-          data: { token },
-        } = response;
-        localStorage.setItem('token', token);
-      })
-      .catch(error => {
-        error && setError('Something went wrong, please try again.');
-      });
+    try {
+      const response = await axios.post(API_LOGIN_URL, data);
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      history.push('/dashboard')
+    } catch (error) {
+      const { Message } = error.response.data;
+      const message = Message.split(':')[1];
+      setErrorMessage(message);
+    }
   };
 
   const handleInputChange = event => {
@@ -41,8 +40,8 @@ function Login() {
 
   return (
     <section className="login-form-container">
-      <Typography variant="h4">Login</Typography>
       <form className="login-form" onSubmit={handleLogin}>
+      <Typography variant="h4">Login</Typography>
         <TextField
           name="email"
           type="email"
@@ -79,9 +78,10 @@ function Login() {
           onClick={() => history.push('/register')}
           className="login-form-register"
         >
-          Not registered? Create an account
+          Not registered?{' '}
+          <span className="create-account">Create an account</span>
         </Typography>
-        {error && <p className="login-form-error">{error}</p>}
+        {errorMessage && <p className="login-form-error">{errorMessage}</p>}
       </form>
     </section>
   );
