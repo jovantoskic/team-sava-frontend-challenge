@@ -21,7 +21,7 @@ function Login() {
     try {
       const response = await login(data);
       const { token } = response.data;
-      setToken(token)
+      setToken(token);
       history.push('/dashboard');
     } catch (error) {
       const { Message } = error.response.data;
