@@ -1,9 +1,15 @@
 @import '../../../styles/settings';
 @import '../../../styles/helpers';
 
-.dashboard-table-container {
-  max-width: 80vw;
-  margin: 0 auto;
-  border: 1px solid $lightGrey;
-  border-radius: 3px;
+.dashboard-container {
+  width: 40vw;
+  .headline-container {
+    @include alignMe(space-between, center);
+  }
+  .dashboard-table-container {
+    max-width: inherit;
+    margin: 0 auto;
+    border: 1px solid $lightGrey;
+    border-radius: 3px;
+  }
 }
