@@ -4,12 +4,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import theme from './styles/theme';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
+    <ToastContainer
+      position="bottom-center"
+      type="info"
+      autoClose={2000}
+      hideProgressBar={true}
+      closeOnClic
+      pauseOnFocusLoss
+      draggable={false}
+      pauseOnHover
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );

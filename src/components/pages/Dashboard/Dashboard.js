@@ -95,7 +95,7 @@ function Dashboard() {
         ) : (
           <Loading />
         )}
-        <ConfigModal handleClose={handleCloseModal} open={openModal}/>
+        <ConfigModal handleClose={handleCloseModal} open={openModal} />
       </div>
     </Layout>
   );

@@ -9,11 +9,12 @@ import Button from '@material-ui/core/Button';
 import { createConfig } from '../../../services/api';
 import { getToken } from '../../../services/storage';
 import { useHistory } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 function ConfigModal({ handleClose, open }) {
-    const history = useHistory();
+  const history = useHistory();
+  const notify = () => toast('Configuration created!');
   const [config, setConfig] = useState({
     name: '',
     version: '',
@@ -21,12 +22,12 @@ function ConfigModal({ handleClose, open }) {
   });
 
   const handleCreateConfig = async () => {
-  const token = getToken();
+    const token = getToken();
     try {
       const response = await createConfig(token, config);
-      console.log(response)
       history.replace('dashboard');
-      handleClose()
+      handleClose();
+      if(response.data.Message) notify() 
     } catch (error) {
       console.log(error);
     }
@@ -82,8 +83,8 @@ function ConfigModal({ handleClose, open }) {
 }
 
 ConfigModal.propTypes = {
-    handleCloseModal: PropTypes.func,
-    open: PropTypes.bool,
+  handleCloseModal: PropTypes.func,
+  open: PropTypes.bool,
 };
 
 export default ConfigModal;
