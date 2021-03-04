@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { API_REGISTER_URL } from '../../../constants/apiRoutes';
-import { handleChange } from '../../../utils/helpers';
+import { register } from '../../../services/api';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -29,7 +28,7 @@ function Register() {
   const handleRegister = async event => {
     event.preventDefault();
     try {
-      await axios.post(API_REGISTER_URL, data);
+      await register(data);
       setData({
         email: '',
         password: '',
@@ -44,10 +43,12 @@ function Register() {
     }
   };
 
-  const handleInputChange = event => {
-    const key = event.target.name;
-    const value = event.target.value;
-    handleChange(setData, data, key, value);
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
@@ -64,7 +65,7 @@ function Register() {
           variant="outlined"
           label="Email"
           required
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <TextField
           name="password"
@@ -76,7 +77,7 @@ function Register() {
           variant="outlined"
           label="Password"
           required
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <TextField
           name="password2"
@@ -88,7 +89,7 @@ function Register() {
           variant="outlined"
           label="Repeat password"
           required
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <Button
           className="register-form-submit-bttn"

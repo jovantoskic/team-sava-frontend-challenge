@@ -1,16 +1,9 @@
+import { getToken } from '../services/storage';
 
 export const isLoggedIn = () => {
-  if (localStorage.getItem('token')) {
+  const token = getToken('jwt_token');
+  if (token) {
     return true;
   }
   return false;
-};
-
-export const handleChange = (callback, data, name, value) => {
-  const key = name;
-  const keyValue = value;
-  callback({
-    ...data,
-    [key]: keyValue,
-  });
 };

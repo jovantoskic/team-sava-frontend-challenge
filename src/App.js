@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 import RouteWrapper from './components/shared/RouteWrapper';
 import Dashboard from './components/pages/Dashboard';
@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/">
             <Redirect to="/login" />
           </Route>
-          <RouteWrapper component={Dashboard} exact path="/dashboard"/>
+          <RouteWrapper component={Dashboard} exact path="/dashboard" />
           <Route component={Register} exact path="/register" />
           <Route component={Login} exact path="/login" />
         </Switch>

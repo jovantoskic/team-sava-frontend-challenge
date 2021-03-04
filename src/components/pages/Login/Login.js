@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { API_LOGIN_URL } from '../../../constants/apiRoutes';
-import { handleChange } from '../../../utils/helpers';
-import axios from 'axios';
+import { login } from '../../../services/api';
+import { setToken } from '../../../services/storage';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +10,6 @@ import './Login.scss';
 
 function Login() {
   const history = useHistory();
-
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -21,10 +19,10 @@ function Login() {
   const handleLogin = async event => {
     event.preventDefault();
     try {
-      const response = await axios.post(API_LOGIN_URL, data);
+      const response = await login(data);
       const { token } = response.data;
-      localStorage.setItem('token', token);
-      history.push('/dashboard')
+      setToken(token)
+      history.push('/dashboard');
     } catch (error) {
       const { Message } = error.response.data;
       const message = Message.split(':')[1];
@@ -32,16 +30,18 @@ function Login() {
     }
   };
 
-  const handleInputChange = event => {
-    const key = event.target.name;
-    const value = event.target.value;
-    handleChange(setData, data, key, value);
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
     <section className="login-form-container">
       <form className="login-form" onSubmit={handleLogin}>
-      <Typography variant="h4">Login</Typography>
+        <Typography variant="h4">Login</Typography>
         <TextField
           name="email"
           type="email"
@@ -51,7 +51,7 @@ function Login() {
           variant="outlined"
           label="Email"
           required
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <TextField
           name="password"
@@ -62,7 +62,7 @@ function Login() {
           variant="outlined"
           label="Password"
           required
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <Button
           className="login-form-submit-bttn"
