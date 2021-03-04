@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Loading from '../../shared/Loading';
+import Layout from '../../shared/Layout';
 import useFetch from '../../../hooks/useFetch';
 
 import './Dashboard.scss';
@@ -26,7 +27,7 @@ function Dashboard() {
   };
 
   return (
-    <>
+    <Layout>
       {data?.length ? (
         <div className="dashboard-table-container">
           <TableContainer>
@@ -64,7 +65,7 @@ function Dashboard() {
       ) : (
         <Loading />
       )}
-    </>
+    </Layout>
   );
 }
 
